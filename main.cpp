@@ -5,6 +5,19 @@
 #define REPLICAS 1000
 
 using namespace conhash;
+
+uint64_t BKDRHash(const string& str)
+{
+	uint64_t seed = 131; // 31 131 1313 13131 131313 etc..
+	uint64_t hash = 0;
+	for (size_t i = 0; i < str.length(); i++)
+	{
+		hash = (hash * seed) + str.at(i);
+	}
+	return hash;
+}
+
+
 int main()
 {
 	HashNode node1,node2,node3;
@@ -15,11 +28,12 @@ int main()
 	node3.node_name = "ip3";
 	node3.replicas = REPLICAS;
 
-	CConhash hashctrller;
+	CConhash hashctrller(&BKDRHash);
+	//CConhash hashctrller;
 	hashctrller.add_node(node1);
 	hashctrller.add_node(node2);
 	hashctrller.add_node(node3);
-
+	
 	map<string, uint32_t> statics;
 	map<string, string> mobility;
 	map<string, string> mobility2;

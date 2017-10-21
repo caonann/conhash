@@ -20,10 +20,12 @@ namespace conhash
 		{
 			if (pfun == NULL)
 			{
+				printf("use def hash func\n");
 				_phash_fun = def_hash_fun;
 			}
 			else
 			{
+				printf("use usr hash func\n");
 				_phash_fun = pfun;
 			}
 		}

@@ -31,8 +31,11 @@ bool CConhash::add_node(HashNode& node)
 		uint64_t hash_val = _phash_fun(virtual_key);
 		string str_hash_val = to_str(hash_val);
 
-		//printf("nodename %s hash_val %llu %s\n", key.c_str(), hash_val, virtual_key.c_str());
-
+		printf("nodename %s hash_val %llu %s\n", key.c_str(), hash_val, virtual_key.c_str());
+		if (_virtual_nodes.find(str_hash_val) != _virtual_nodes.end())
+		{
+			printf("not null\n");
+		}
 		_virtual_nodes.insert(make_pair(str_hash_val, node));
 		_virtual_num++;
 	}
