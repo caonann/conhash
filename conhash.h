@@ -50,7 +50,7 @@ namespace conhash
 			}			
 
 			int i = 0;
-			for (map<string, vector<string>>::iterator it = _real_map_virtal.begin();it !=_real_map_virtal.end();++it)
+			for (map<string, vector<string> >::iterator it = _real_map_virtal.begin();it !=_real_map_virtal.end();++it)
 			{
 				string filename = it->first;
 				vector<string>& veclist = it->second;
@@ -78,7 +78,7 @@ namespace conhash
 	private:
 		map<string, HashNode> _virtual_nodes;
 		map<string,HashNode> _real_nodes;
-		map<string, vector<string>> _real_map_virtal;
+		map<string, vector<string> > _real_map_virtal;
 		uint32_t _virtual_num;
 		PHASH_FUN _phash_fun;
 	};

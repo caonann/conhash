@@ -91,7 +91,7 @@ HashNode CConhash::conhash(const string& hashkey)
 		printf("openfile failed \n");
 		return HashNode();
 	}
-	fprintf(out, "%llu\n", hash);
+	fprintf(out, "%lu\n", hash);
 	fclose(out);
 	out = NULL;
 	map<string, HashNode>::iterator it = _virtual_nodes.lower_bound(to_str(hash));
