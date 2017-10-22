@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "conhash.h"
 #include "def.h"
-#define DATA_NUM 10000
+#define DATA_NUM 1000
 #define REPLICAS 1000
 
 using namespace conhash;
@@ -28,8 +28,8 @@ int main()
 	node3.node_name = "ip3";
 	node3.replicas = REPLICAS;
 
-	CConhash hashctrller(&BKDRHash);
-	//CConhash hashctrller;
+	//CConhash hashctrller(&BKDRHash);
+	CConhash hashctrller;
 	hashctrller.add_node(node1);
 	hashctrller.add_node(node2);
 	hashctrller.add_node(node3);
@@ -37,10 +37,10 @@ int main()
 	map<string, uint32_t> statics;
 	map<string, string> mobility;
 	map<string, string> mobility2;
-	//hashctrller.show_virtual_nodes();
+	hashctrller.show_virtual_nodes();
 	for (int i=0;i<DATA_NUM;i++)
 	{
-		string hash_seed = "James.km" + to_str(i);
+		string hash_seed = "hulkcaohulkcaohulkcaohulkcao" + to_str(i);
 		HashNode ret_node = hashctrller.conhash(hash_seed);
 		//printf("ccc in %s\n", ret_node.node_name.c_str());
 		string& nodekey = ret_node.node_name;
@@ -50,7 +50,7 @@ int main()
 		}
 		else
 		{
-			statics.insert(make_pair(nodekey, 0));
+			statics.insert(make_pair(nodekey, 1));
 		}
 
 		mobility[hash_seed] = nodekey;
@@ -72,7 +72,7 @@ int main()
 	hashctrller.add_node(node4);
 	for (int i = 0; i < DATA_NUM; i++)
 	{
-		string hash_seed = "James.km" + to_str(i);
+		string hash_seed = "hulkcaohulkcaohulkcaohulkcao" + to_str(i);
 		HashNode ret_node = hashctrller.conhash(hash_seed);
 		//printf("ccc in %s\n", ret_node.node_name.c_str());
 		string& nodekey = ret_node.node_name;
@@ -82,7 +82,7 @@ int main()
 		}
 		else
 		{
-			statics.insert(make_pair(nodekey, 0));
+			statics.insert(make_pair(nodekey, 1));
 		}
 		mobility2[hash_seed] = nodekey;
 	}
