@@ -41,10 +41,27 @@ namespace conhash
 
 		void show_virtual_nodes()
 		{
+			
 			for (map<string, HashNode>::iterator it= _virtual_nodes.begin();it != _virtual_nodes.end();++it)
 			{
 				HashNode& node = it->second;
-				printf("node name %s,virtualkey %s\n", node.node_name.c_str(), it->first.c_str());
+				string virtualkey = it->first;
+				printf("node name %s,virtualkey %s\n", node.node_name.c_str(), virtualkey.c_str());
+			}			
+
+			int i = 0;
+			for (map<string, vector<string>>::iterator it = _real_map_virtal.begin();it !=_real_map_virtal.end();++it)
+			{
+				string filename = it->first;
+				vector<string>& veclist = it->second;
+				FILE* out = fopen(filename.c_str(), "w+");
+				for (vector<string>::iterator it = veclist.begin();it != veclist.end();++it)
+				{
+					//fprintf(out, "[%d,%s,%d],", i, it->c_str(), 1);
+					fprintf(out, "%s\n", it->c_str());
+				}
+				fclose(out);
+				i++;
 			}
 		}
 	private:
@@ -61,6 +78,7 @@ namespace conhash
 	private:
 		map<string, HashNode> _virtual_nodes;
 		map<string,HashNode> _real_nodes;
+		map<string, vector<string>> _real_map_virtal;
 		uint32_t _virtual_num;
 		PHASH_FUN _phash_fun;
 	};
