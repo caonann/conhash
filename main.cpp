@@ -1,6 +1,9 @@
 #include <stdlib.h>
+#include <fstream>
 #include "conhash.h"
 #include "def.h"
+#include "ut.h"
+
 #define DATA_NUM 1000
 #define REPLICAS 1000
 
@@ -37,7 +40,28 @@ int main()
 	map<string, uint32_t> statics;
 	map<string, string> mobility;
 	map<string, string> mobility2;
-	hashctrller.show_virtual_nodes();
+	//hashctrller.show_virtual_nodes();
+	ifstream serverinf("./channellist.conf");
+	string strServer;
+	std::vector<string> v_channellist;
+	while (getline(serverinf, strServer))
+	{
+		v_channellist.push_back(strServer);
+	}
+
+	map<string, uint32_t> statics_channel;
+	map<string, string> mobility_channel;
+	for (auto&channel:v_channellist)
+	{
+		test_lookup(channel, hashctrller, statics_channel, mobility_channel);
+	}
+
+	for (auto &node : statics_channel)
+	{
+		printf("channel node %s,count %u\n", node.first.c_str(), node.second);
+	}
+
+
 	for (int i=0;i<DATA_NUM;i++)
 	{
 		string hash_seed = "hulkcaohulkcaohulkcaohulkcao" + to_str(i);

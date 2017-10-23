@@ -39,6 +39,7 @@ namespace conhash
 			return _virtual_num;
 		}
 
+		//for debug
 		void show_virtual_nodes()
 		{
 			
