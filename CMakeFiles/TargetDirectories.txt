@@ -1,2 +1,0 @@
-/home/cn/data/conhash/src/CMakeFiles/conhash.dir
-/home/cn/data/conhash/example/CMakeFiles/sample.dir
