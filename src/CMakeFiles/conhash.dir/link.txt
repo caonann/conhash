@@ -1,0 +1,2 @@
+/usr/bin/ar cr libconhash.a  CMakeFiles/conhash.dir/conhash.cpp.o CMakeFiles/conhash.dir/md5.c.o
+/usr/bin/ranlib libconhash.a
