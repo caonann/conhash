@@ -11,7 +11,7 @@ using namespace std;
 
 namespace conhash
 {
-	typedef uint64_t (*PHASH_FUN)(const string& key) ;
+	typedef string (*PHASH_FUN)(const string& key) ;
 
 	class CConhash:public Noncopyable
 	{
@@ -66,7 +66,7 @@ namespace conhash
 			}
 		}
 	private:
-		static uint64_t def_hash_fun(const string& key);
+		static string def_hash_fun(const string& key);
 		static void conhash_md5_digest(const char *instr, char digest[16])
 		{
 			md5_state_t md5state;

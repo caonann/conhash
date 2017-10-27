@@ -29,8 +29,7 @@ bool CConhash::add_node(HashNode& node)
 	for (int i=0;i<replicas;i++)
 	{
 		string virtual_key = key + to_str(i);
-		uint64_t hash_val = _phash_fun(virtual_key);
-		string str_hash_val = to_str(hash_val);
+		string str_hash_val = _phash_fun(virtual_key);
 
 		//printf("nodename %s hash_val %llu %s\n", key.c_str(), hash_val, virtual_key.c_str());
 		if (_virtual_nodes.find(str_hash_val) != _virtual_nodes.end())
@@ -71,8 +70,7 @@ bool CConhash::del_node(HashNode& node)
 	for (int i = 0; i < replicas; i++)
 	{
 		string virtual_key = key + to_str(i);
-		uint64_t hash_val = _phash_fun(virtual_key);
-		string str_hash_val = to_str(hash_val);
+		string str_hash_val = _phash_fun(virtual_key);
 
 		//printf("nodename %s del hash_val %llu\n", key.c_str(), hash_val);
 		_virtual_nodes.erase(str_hash_val);
@@ -84,14 +82,14 @@ bool CConhash::del_node(HashNode& node)
 
 HashNode CConhash::conhash(const string& hashkey)
 {
-	uint64_t hash = _phash_fun(hashkey);
+	string hash = _phash_fun(hashkey);
 	FILE *out = fopen("./conhash.txt", "a+");
 	if (NULL == out)
 	{
 		printf("openfile failed \n");
 		return HashNode();
 	}
-	fprintf(out, "%lu\n", hash);
+	fprintf(out, "%s\n", hash.c_str());
 	fclose(out);
 	out = NULL;
 	map<string, HashNode>::iterator it = _virtual_nodes.lower_bound(to_str(hash));
@@ -106,7 +104,7 @@ HashNode CConhash::conhash(const string& hashkey)
 	}
 }
 
-uint64_t CConhash::def_hash_fun(const string& key)
+string CConhash::def_hash_fun(const string& key)
 {
 	int i;
 	long hash = 0;
@@ -121,5 +119,6 @@ uint64_t CConhash::def_hash_fun(const string& key)
 			| ((long)(digest[i * 4 + 1] & 0xFF) << 8)
 			| ((long)(digest[i * 4 + 0] & 0xFF));
 	}
-	return hash;
+
+	return to_str(hash);
 }
