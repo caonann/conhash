@@ -16,9 +16,9 @@ namespace conhash
 	class CConhash:public Noncopyable
 	{
 	public:
-		CConhash(PHASH_FUN pfun = NULL) :_virtual_num(0), _phash_fun(NULL)
+		explicit CConhash(PHASH_FUN pfun = nullptr) :_virtual_num(0), _phash_fun(nullptr)
 		{
-			if (pfun == NULL)
+			if (pfun == nullptr)
 			{
 				printf("use def hash func\n");
 				_phash_fun = def_hash_fun;
@@ -42,24 +42,23 @@ namespace conhash
 		//for debug
 		void show_virtual_nodes()
 		{
-			
-			for (map<string, HashNode>::iterator it= _virtual_nodes.begin();it != _virtual_nodes.end();++it)
+			for(auto &it:_virtual_nodes)
 			{
-				HashNode& node = it->second;
-				string virtualkey = it->first;
+				HashNode& node = it.second;
+				string virtualkey = it.first;
 				printf("node name %s,virtualkey %s\n", node.node_name.c_str(), virtualkey.c_str());
 			}			
 
 			int i = 0;
-			for (map<string, vector<string> >::iterator it = _real_map_virtal.begin();it !=_real_map_virtal.end();++it)
+			for (auto& it :_real_map_virtal)
 			{
-				string filename = it->first;
-				vector<string>& veclist = it->second;
+				string filename = it.first;
+				vector<string>& veclist = it.second;
 				FILE* out = fopen(filename.c_str(), "w+");
-				for (vector<string>::iterator it = veclist.begin();it != veclist.end();++it)
+				for (auto& item :veclist)
 				{
 					//fprintf(out, "[%d,%s,%d],", i, it->c_str(), 1);
-					fprintf(out, "%s\n", it->c_str());
+					fprintf(out, "%s\n", item.c_str());
 				}
 				fclose(out);
 				i++;
