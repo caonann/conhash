@@ -14,7 +14,7 @@ bool CConhash::add_node(HashNode& node)
 	string& key = node.node_name;
 	const uint32_t replicas = node.replicas;
 
-	map<string, HashNode>::iterator it = _real_nodes.find(key);
+	auto it = _real_nodes.find(key);
 	if (it != _real_nodes.end())
 	{
 		printf("node already existed %s\n", key.c_str());
@@ -58,7 +58,7 @@ bool CConhash::del_node(HashNode& node)
 	//del real nodes
 	const string& key = node.node_name;
 	uint32_t replicas = node.replicas;
-	map<string, HashNode>::iterator it = _real_nodes.find(key);
+	auto it = _real_nodes.find(key);
 	if ( it == _real_nodes.end() || it->second.replicas != replicas)
 	{
 		printf("del node failed not find key %s", key.c_str());
@@ -84,15 +84,15 @@ HashNode CConhash::conhash(const string& hashkey)
 {
 	string hash = _phash_fun(hashkey);
 	FILE *out = fopen("./conhash.txt", "a+");
-	if (NULL == out)
+	if (nullptr == out)
 	{
 		printf("openfile failed \n");
 		return HashNode();
 	}
 	fprintf(out, "%s\n", hash.c_str());
 	fclose(out);
-	out = NULL;
-	map<string, HashNode>::iterator it = _virtual_nodes.lower_bound(to_str(hash));
+	out= nullptr;
+	auto it = _virtual_nodes.lower_bound(to_str(hash));
 	if (it != _virtual_nodes.end())
 	{
 		return it->second;

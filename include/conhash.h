@@ -76,11 +76,11 @@ namespace conhash
 		}
 
 	private:
-		map<string, HashNode> _virtual_nodes;
-		map<string,HashNode> _real_nodes;
+		map<string, HashNode>        _virtual_nodes;
+		map<string,HashNode>         _real_nodes;
 		map<string, vector<string> > _real_map_virtal;
-		uint32_t _virtual_num;
-		PHASH_FUN _phash_fun;
+		uint32_t                     _virtual_num;
+		PHASH_FUN                    _phash_fun;
 	};
 }
 #endif
